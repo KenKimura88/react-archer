@@ -166,7 +166,7 @@ const SvgArrow = ({
       <path
         d={pathString}
         style={{ fill: 'none', stroke: strokeColor, strokeWidth }}
-        markerEnd={`url(${location.href}#${arrowMarkerId})`}
+        markerEnd={`url(#${arrowMarkerId})`}
       />
       {arrowLabel && (
         <foreignObject x={xl} y={yl} width={wl} height={hl} style={{overflow:'visible'}}>
