@@ -1,22 +1,22 @@
 {
-  "name": "react-archer",
+  "name": "react-archer-element",
   "description": "Draw arrows between DOM elements in React",
   "main": "lib/react-archer.js",
   "module": "lib/react-archer.js",
   "types": "types/react-archer.d.ts",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "license": "MIT",
   "dependencies": {
     "react-fast-compare": "^2.0.4",
     "resize-observer-polyfill": "1.5.0"
   },
-  "homepage": "https://github.com/pierpo/react-archer",
+  "homepage": "https://github.com/KenKimura88/react-archer",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pierpo/react-archer"
+    "url": "https://github.com/KenKimura88/react-archer"
   },
   "bugs": {
-    "url": "https://github.com/pierpo/react-archer/issues"
+    "url": "https://github.com/KenKimura88/react-archer/issues"
   },
   "scripts": {
     "dev": "webpack-dev-server --hot --progress --colors --config ./webpack.config.js",
