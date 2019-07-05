@@ -229,19 +229,7 @@ export class ArcherContainer extends React.Component<Props, State> {
       const arrowThickness =
         (style && style.arrowThickness) || this.props.arrowThickness;
 
-      const startingAnchor = source.anchor;
-      const startingPoint = this.getPointCoordinatesFromAnchorPosition(
-        source.anchor,
-        source.id,
-        parentCoordinates,
-      );
-
-      const endingAnchor = target.anchor;
-      const endingPoint = this.getPointCoordinatesFromAnchorPosition(
-        target.anchor,
-        target.id,
-        parentCoordinates,
-      );
+      const { startingAnchor, startingPoint, endingAnchor, endingPoint } = this.getAnchorPoint(source, target, parentCoordinates);
 
       return (
         <SvgArrow
@@ -260,6 +248,40 @@ export class ArcherContainer extends React.Component<Props, State> {
       );
     });
   };
+
+  getAnchorPoint = (source, target, parentCoordinates) => {
+    let sourceRect, targetRect;
+    if (!source.anchor || !target.anchor) {
+      sourceRect = this.getRectFromRef(this.state.refs[source.id]);
+      targetRect = this.getRectFromRef(this.state.refs[target.id]);
+    }
+    if (!source.anchor) {
+      source.anchor = sourceRect.y < targetRect.y ? 'bottom' : 'top'
+    }
+    if (!target.anchor) {
+      target.anchor = sourceRect.y < targetRect.y ? 'top' : 'bottom'
+    }
+    const startingAnchor = source.anchor;
+    const startingPoint = this.getPointCoordinatesFromAnchorPosition(
+      source.anchor,
+      source.id,
+      parentCoordinates,
+    );
+
+    const endingAnchor = target.anchor;
+    const endingPoint = this.getPointCoordinatesFromAnchorPosition(
+      target.anchor,
+      target.id,
+      parentCoordinates,
+    );
+    
+    return {
+      startingAnchor,
+      startingPoint,
+      endingAnchor,
+      endingPoint
+    }
+  }
 
   /** Generates an id for an arrow marker
    * Useful to have one marker per arrow so that each arrow
