@@ -117,7 +117,9 @@ export class ArcherContainer extends React.Component<Props, State> {
     const { observer } = this.state;
 
     Object.keys(this.state.refs).map(elementKey => {
-      observer.unobserve(this.state.refs[elementKey]);
+      if (this.state.refs[elementKey]) {
+        observer.unobserve(this.state.refs[elementKey]);
+      }
     });
 
     if (window) window.removeEventListener('resize', this.refreshScreen);
