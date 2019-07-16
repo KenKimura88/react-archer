@@ -260,10 +260,30 @@ export class ArcherContainer extends React.Component<Props, State> {
       targetRect = this.getRectFromRef(this.state.refs[target.id]);
     }
     if (!source.anchor) {
-      source.anchor = sourceRect.y < targetRect.y ? 'bottom' : 'top'
+      let anchor;
+      if (sourceRect.y < targetRect.y - 5) {
+        anchor = 'bottom';
+      } else if (sourceRect.y > targetRect.y + 5) {
+        anchor = 'top';
+      } else if (sourceRect.x < targetRect.x) {
+        anchor = 'right';
+      } else {
+        anchor = 'left';
+      }
+      source.anchor = anchor
     }
     if (!target.anchor) {
-      target.anchor = sourceRect.y < targetRect.y ? 'top' : 'bottom'
+      let anchor;
+      if (sourceRect.y < targetRect.y - 5) {
+        anchor = 'top';
+      } else if (sourceRect.y > targetRect.y + 5) {
+        anchor = 'bottom';
+      } else if (sourceRect.x < targetRect.x) {
+        anchor = 'left';
+      } else {
+        anchor = 'right';
+      }
+      target.anchor = anchor
     }
     const startingAnchor = source.anchor;
     const startingPoint = this.getPointCoordinatesFromAnchorPosition(
