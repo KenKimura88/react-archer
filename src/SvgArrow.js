@@ -25,6 +25,8 @@ function computeEndingArrowDirectionVector(endingAnchor) {
       return { arrowX: 0, arrowY: -1 };
     case 'bottom':
       return { arrowX: 0, arrowY: 1 };
+    case 'bottom-start':
+      return { arrowX: 0, arrowY: 1 };
     default:
       return { arrowX: 0, arrowY: 0 };
   }
@@ -54,7 +56,7 @@ export function computeStartingAnchorPosition(
   ye: number,
   startingAnchor: AnchorPositionType,
 ): { xa1: number, ya1: number } {
-  if (startingAnchor === 'top' || startingAnchor === 'bottom') {
+  if (startingAnchor === 'top' || startingAnchor === 'bottom' || startingAnchor === 'bottom-start') {
     return {
       xa1: xs,
       ya1: ys + (ye - ys) / 2,
@@ -77,7 +79,7 @@ export function computeEndingAnchorPosition(
   ye: number,
   endingAnchor: AnchorPositionType,
 ): { xa2: number, ya2: number } {
-  if (endingAnchor === 'top' || endingAnchor === 'bottom') {
+  if (endingAnchor === 'top' || endingAnchor === 'bottom' || endingAnchor === 'bottom-start') {
     return {
       xa2: xe,
       ya2: ye - (ye - ys) / 2,

@@ -53,7 +53,9 @@ function computeCoordinatesFromAnchorPosition(
     case 'top':
       return rectToPoint(rect).add(new Point(rect.width / 2, 0));
     case 'bottom':
-      return rectToPoint(rect).add(new Point(rect.width / 2, rect.height));
+        return rectToPoint(rect).add(new Point(rect.width / 2, rect.height));
+    case 'bottom-start':
+      return rectToPoint(rect).add(new Point(10, rect.height));
     case 'left':
       return rectToPoint(rect).add(new Point(0, rect.height / 2));
     case 'right':
