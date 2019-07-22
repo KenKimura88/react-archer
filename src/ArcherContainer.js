@@ -9,6 +9,7 @@ import SvgArrow from './SvgArrow';
 type Props = {
   arrowLength: number,
   arrowThickness: number,
+  arrowShape: 'curve' | 'rect',
   strokeColor: string,
   strokeWidth: number,
   children: React$Node,
@@ -106,6 +107,7 @@ export class ArcherContainer extends React.Component<Props, State> {
   static defaultProps = {
     arrowLength: 10,
     arrowThickness: 6,
+    arrowShape: 'curve',
     strokeColor: '#f00',
     strokeWidth: 2,
     svgContainerStyle: {},
@@ -235,7 +237,10 @@ export class ArcherContainer extends React.Component<Props, State> {
       const arrowThickness =
         (style && style.arrowThickness) || this.props.arrowThickness;
 
-      const { startingAnchor, startingPoint, endingAnchor, endingPoint } = this.getAnchorPoint(source, target, parentCoordinates);
+      const arrowShape =
+        (style && style.arrowShape) || this.props.arrowShape;
+
+        const { startingAnchor, startingPoint, endingAnchor, endingPoint } = this.getAnchorPoint(source, target, parentCoordinates);
 
       return (
         <SvgArrow
@@ -249,6 +254,7 @@ export class ArcherContainer extends React.Component<Props, State> {
           strokeWidth={strokeWidth}
           arrowLabel={label}
           arrowThickness={arrowThickness}
+          arrowShape={arrowShape}
           arrowMarkerId={this.getMarkerId(source, target)}
         />
       );

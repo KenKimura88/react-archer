@@ -12,6 +12,7 @@ type Props = {
   arrowLength: number,
   strokeWidth: number,
   arrowLabel?: ?React$Node,
+  arrowShape: 'curve' | 'rect',
   arrowMarkerId: string,
 };
 
@@ -115,6 +116,25 @@ export function computeLabelDimensions(
   };
 }
 
+function computeArrowPath(
+  arrowShape: string,
+  xs: number,
+  ys: number,
+  xa1: number,
+  ya1: number,
+  xa2: number,
+  ya2: number,
+  xe: number,
+  ye: number,
+) {
+  switch (arrowShape) {
+    case 'rect':
+      return `M${xs},${ys} ` + `L${xa1},${ya1}` + `L${xa2},${ya2}` + `L${xe},${ye}`;
+    default:
+      return `M${xs},${ys} ` + `C${xa1},${ya1} ${xa2},${ya2} ` + `${xe},${ye}`;
+  }
+}
+
 const SvgArrow = ({
   startingPoint,
   startingAnchor,
@@ -125,6 +145,7 @@ const SvgArrow = ({
   strokeWidth,
   arrowLabel,
   arrowMarkerId,
+  arrowShape,
 }: Props) => {
   const actualArrowLength = arrowLength * 2;
 
@@ -158,8 +179,17 @@ const SvgArrow = ({
   );
   const { xa2, ya2 } = endingPosition;
 
-  const pathString =
-    `M${xs},${ys} ` + `C${xa1},${ya1} ${xa2},${ya2} ` + `${xe},${ye}`;
+  const pathString = computeArrowPath(
+    arrowShape,
+    xs,
+    ys,
+    xa1,
+    ya1,
+    xa2,
+    ya2,
+    xe,
+    ye
+  );
 
   const { xl, yl, wl, hl } = computeLabelDimensions(xs, ys, xe, ye);
 
