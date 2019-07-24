@@ -33,25 +33,6 @@ function computeEndingArrowDirectionVector(endingAnchor) {
   }
 }
 
-function computeArrowPath(
-  arrowShape,
-  xs,
-  ys,
-  xa1,
-  ya1,
-  xa2,
-  ya2,
-  xe,
-  ye,
-) {
-  switch (arrowShape) {
-    case 'rect':
-      return `M${xs},${ys} ` + `L${xa1},${ya1}` + `L${xa2},${ya2}` + `L${xe},${ye}`;
-    default:
-      return `M${xs},${ys} ` + `C${xa1},${ya1} ${xa2},${ya2} ` + `${xe},${ye}`;
-  }
-}
-
 export function computeEndingPointAccordingToArrow(
   xEnd: number,
   yEnd: number,
@@ -179,17 +160,9 @@ const SvgArrow = ({
   );
   const { xa2, ya2 } = endingPosition;
 
-  const pathString = computeArrowPath(
-    arrowShape,
-    xs,
-    ys,
-    xa1,
-    ya1,
-    xa2,
-    ya2,
-    xe,
-    ye
-  );
+  const pathString = arrowShape === 'rect' ?
+      `M${xs},${ys} ` + `L${xa1},${ya1}` + `L${xa2},${ya2}` + `L${xe},${ye}`
+      : `M${xs},${ys} ` + `C${xa1},${ya1} ${xa2},${ya2} ` + `${xe},${ye}`;
 
   const { xl, yl, wl, hl } = computeLabelDimensions(xs, ys, xe, ye);
 
