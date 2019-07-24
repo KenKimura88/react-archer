@@ -9,6 +9,8 @@ export interface ArcherContainerProps {
    * A size in px
    */
   arrowThickness?: number;
+
+  arrowShape?: string;
   /**
    * A color string
    *
@@ -40,8 +42,8 @@ export type AnchorPosition = 'top' | 'bottom' | 'left' | 'right';
 
 export interface Relation {
   targetId: string;
-  targetAnchor: AnchorPosition;
-  sourceAnchor: AnchorPosition;
+  targetAnchor?: AnchorPosition;
+  sourceAnchor?: AnchorPosition;
   label?: React.ReactNode;
   style?: ArrowStyle;
 }
