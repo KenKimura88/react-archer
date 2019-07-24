@@ -9,7 +9,7 @@ import SvgArrow from './SvgArrow';
 type Props = {
   arrowLength: number,
   arrowThickness: number,
-  arrowShape: 'curve' | 'rect',
+  arrowShape?: string,
   strokeColor: string,
   strokeWidth: number,
   children: React$Node,
