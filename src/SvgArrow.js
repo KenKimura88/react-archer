@@ -47,52 +47,6 @@ export function computeEndingPointAccordingToArrow(
   return { xe, ye };
 }
 
-export function computeStartingAnchorPosition(
-  xs: number,
-  ys: number,
-  xe: number,
-  ye: number,
-  startingAnchor: AnchorPositionType,
-): { xa1: number, ya1: number } {
-  if (startingAnchor === 'top' || startingAnchor === 'bottom' || startingAnchor === 'bottom-start') {
-    return {
-      xa1: xs,
-      ya1: ys + (ye - ys) / 2,
-    };
-  }
-  if (startingAnchor === 'left' || startingAnchor === 'right') {
-    return {
-      xa1: xs + (xe - xs) / 2,
-      ya1: ys,
-    };
-  }
-
-  return { xa1: xs, ya1: ys };
-}
-
-export function computeEndingAnchorPosition(
-  xs: number,
-  ys: number,
-  xe: number,
-  ye: number,
-  endingAnchor: AnchorPositionType,
-): { xa2: number, ya2: number } {
-  if (endingAnchor === 'top' || endingAnchor === 'bottom' || endingAnchor === 'bottom-start') {
-    return {
-      xa2: xe,
-      ya2: ye - (ye - ys) / 2,
-    };
-  }
-  if (endingAnchor === 'left' || endingAnchor === 'right') {
-    return {
-      xa2: xe - (xe - xs) / 2,
-      ya2: ye,
-    };
-  }
-
-  return { xa2: xe, ya2: ye };
-}
-
 export function computeLabelDimensions(
   xs: number,
   ys: number,
@@ -139,22 +93,36 @@ const SvgArrow = ({
   );
   const { xe, ye } = endingPointWithArrow;
 
-  const startingPosition = computeStartingAnchorPosition(
-    xs,
-    ys,
-    xe,
-    ye,
-    startingAnchor,
-  );
+  let startingPosition = { xa1: xs, ya1: ys };
+  if (startingAnchor === 'top' || startingAnchor === 'bottom' || startingAnchor === 'bottom-start') {
+    startingPosition = {
+      xa1: xs,
+      ya1: ys + (ye - ys) / 2,
+    };
+  }
+  if (startingAnchor === 'left' || startingAnchor === 'right') {
+    startingPosition = {
+      xa1: xs + (xe - xs) / 2,
+      ya1: ys,
+    };
+  }
+
   const { xa1, ya1 } = startingPosition;
 
-  const endingPosition = computeEndingAnchorPosition(
-    xs,
-    ys,
-    xe,
-    ye,
-    endingAnchor,
-  );
+  let endingPosition = { xa2: xe, ya2: ye };
+  if (endingAnchor === 'top' || endingAnchor === 'bottom' || endingAnchor === 'bottom-start') {
+    endingPosition = {
+      xa2: xe,
+      ya2: ye - (ye - ys) / 2,
+    };
+  }
+  if (endingAnchor === 'left' || endingAnchor === 'right') {
+    endingPosition = {
+      xa2: xe - (xe - xs) / 2,
+      ya2: ye,
+    };
+  }
+
   const { xa2, ya2 } = endingPosition;
 
   const pathString = arrowShape === 'rect' ?
