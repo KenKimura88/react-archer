@@ -38,7 +38,7 @@ export interface ArrowStyle {
   arrowThickness?: number;
 }
 
-export type AnchorPosition = 'top' | 'bottom' | 'left' | 'right';
+export type AnchorPosition = 'top' | 'bottom' | 'bottom-start' | 'left' | 'right';
 
 export interface Relation {
   targetId: string;

@@ -16,23 +16,6 @@ type Props = {
   arrowMarkerId: string,
 };
 
-function computeEndingArrowDirectionVector(endingAnchor) {
-  switch (endingAnchor) {
-    case 'left':
-      return { arrowX: -1, arrowY: 0 };
-    case 'right':
-      return { arrowX: 1, arrowY: 0 };
-    case 'top':
-      return { arrowX: 0, arrowY: -1 };
-    case 'bottom':
-      return { arrowX: 0, arrowY: 1 };
-    case 'bottom-start':
-      return { arrowX: 0, arrowY: 1 };
-    default:
-      return { arrowX: 0, arrowY: 0 };
-  }
-}
-
 export function computeEndingPointAccordingToArrow(
   xEnd: number,
   yEnd: number,
@@ -40,7 +23,21 @@ export function computeEndingPointAccordingToArrow(
   strokeWidth: number,
   endingAnchor: AnchorPositionType,
 ) {
-  const endingVector = computeEndingArrowDirectionVector(endingAnchor);
+  let endingVector;
+
+  switch (endingAnchor) {
+    case 'left':
+      endingVector = { arrowX: -1, arrowY: 0 };
+    case 'right':
+      endingVector = { arrowX: 1, arrowY: 0 };
+    case 'top':
+      endingVector = { arrowX: 0, arrowY: -1 };
+    case 'bottom':
+    case 'bottom-start':
+      endingVector = { arrowX: 0, arrowY: 1 };
+    default:
+      endingVector = { arrowX: 0, arrowY: 0 };
+  }
 
   const { arrowX, arrowY } = endingVector;
 

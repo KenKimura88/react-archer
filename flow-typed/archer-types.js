@@ -1,4 +1,4 @@
-declare type AnchorPositionType = 'top' | 'bottom' | 'left' | 'right';
+declare type AnchorPositionType = 'top' | 'bottom' | 'bottom-start' | 'left' | 'right';
 
 declare type RelationType = {
   targetId: string,
