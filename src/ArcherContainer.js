@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import ResizeObserver from 'resize-observer-polyfill';
 import Point from './Point';
