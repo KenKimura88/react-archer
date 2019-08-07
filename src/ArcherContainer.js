@@ -185,10 +185,10 @@ export class ArcherContainer extends React.Component<Props, State> {
     const { sourceToTargetsMap } = this.state;
 
     const sourceToTargetsMapCopy = { ...sourceToTargetsMap };
-
-    delete sourceToTargetsMapCopy[elementId];
-
-    this.setState(() => ({ sourceToTargetsMap: sourceToTargetsMapCopy }));
+    if (sourceToTargetsMapCopy[elementId]) {
+      delete sourceToTargetsMapCopy[elementId];
+      this.setState(() => ({ sourceToTargetsMap: sourceToTargetsMapCopy }));
+    }
   };
 
   registerChild = (id: string, ref: HTMLElement): void => {
