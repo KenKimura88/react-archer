@@ -243,7 +243,7 @@ export class ArcherContainer extends React.Component<Props, State> {
       const sourceRect = this.getRectFromRef(this.state.refs[source.id]);
       const targetRect = this.getRectFromRef(this.state.refs[target.id]);
 
-      if (!sourceRect && !targetRect) {
+      if (!sourceRect || !targetRect) {
         return null;
       }
 
