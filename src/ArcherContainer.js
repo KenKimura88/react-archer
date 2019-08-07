@@ -240,7 +240,54 @@ export class ArcherContainer extends React.Component<Props, State> {
       const arrowShape =
         (style && style.arrowShape) || this.props.arrowShape;
 
-        const { startingAnchor, startingPoint, endingAnchor, endingPoint } = this.getAnchorPoint(source, target, parentCoordinates);
+      const sourceRect = this.getRectFromRef(this.state.refs[source.id]);
+      const targetRect = this.getRectFromRef(this.state.refs[target.id]);
+
+      if (!sourceRect && !targetRect) {
+        return null;
+      }
+
+      if (!source.anchor || !target.anchor) {
+        if (!source.anchor) {
+          let anchor;
+          if (sourceRect.y < targetRect.y - 5) {
+            anchor = 'bottom';
+          } else if (sourceRect.y > targetRect.y + 5) {
+            anchor = 'top';
+          } else if (sourceRect.x < targetRect.x) {
+            anchor = 'right';
+          } else {
+            anchor = 'left';
+          }
+          source.anchor = anchor
+        }
+        if (!target.anchor) {
+          let anchor;
+          if (sourceRect.y < targetRect.y - 5) {
+            anchor = 'top';
+          } else if (sourceRect.y > targetRect.y + 5) {
+            anchor = 'bottom';
+          } else if (sourceRect.x < targetRect.x) {
+            anchor = 'left';
+          } else {
+            anchor = 'right';
+          }
+          target.anchor = anchor
+        }
+      }
+      const startingAnchor = source.anchor;
+      const startingPoint = this.getPointCoordinatesFromAnchorPosition(
+        source.anchor,
+        source.id,
+        parentCoordinates,
+      );
+  
+      const endingAnchor = target.anchor;
+      const endingPoint = this.getPointCoordinatesFromAnchorPosition(
+        target.anchor,
+        target.id,
+        parentCoordinates,
+      );
 
       return (
         <SvgArrow
@@ -260,60 +307,6 @@ export class ArcherContainer extends React.Component<Props, State> {
       );
     });
   };
-
-  getAnchorPoint = (source, target, parentCoordinates) => {
-    let sourceRect, targetRect;
-    if (!source.anchor || !target.anchor) {
-      sourceRect = this.getRectFromRef(this.state.refs[source.id]);
-      targetRect = this.getRectFromRef(this.state.refs[target.id]);
-    }
-    if (!source.anchor) {
-      let anchor;
-      if (sourceRect.y < targetRect.y - 5) {
-        anchor = 'bottom';
-      } else if (sourceRect.y > targetRect.y + 5) {
-        anchor = 'top';
-      } else if (sourceRect.x < targetRect.x) {
-        anchor = 'right';
-      } else {
-        anchor = 'left';
-      }
-      source.anchor = anchor
-    }
-    if (!target.anchor) {
-      let anchor;
-      if (sourceRect.y < targetRect.y - 5) {
-        anchor = 'top';
-      } else if (sourceRect.y > targetRect.y + 5) {
-        anchor = 'bottom';
-      } else if (sourceRect.x < targetRect.x) {
-        anchor = 'left';
-      } else {
-        anchor = 'right';
-      }
-      target.anchor = anchor
-    }
-    const startingAnchor = source.anchor;
-    const startingPoint = this.getPointCoordinatesFromAnchorPosition(
-      source.anchor,
-      source.id,
-      parentCoordinates,
-    );
-
-    const endingAnchor = target.anchor;
-    const endingPoint = this.getPointCoordinatesFromAnchorPosition(
-      target.anchor,
-      target.id,
-      parentCoordinates,
-    );
-    
-    return {
-      startingAnchor,
-      startingPoint,
-      endingAnchor,
-      endingPoint
-    }
-  }
 
   /** Generates an id for an arrow marker
    * Useful to have one marker per arrow so that each arrow
