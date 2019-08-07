@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 
 var config = {
-  mode: 'production',
+  mode: 'development',
   entry: './src/react-archer.js',
   output: {
     path: path.join(__dirname, 'lib'),
